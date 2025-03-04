@@ -1,6 +1,5 @@
 import openai
 import pyttsx3
-import time
 import os
 import streamlit as st
 
@@ -8,8 +7,8 @@ import streamlit as st
 api_key = os.getenv("OPENAI_API_KEY")
 
 if not api_key:
-    print("🚨 ERROR: OpenAI API key is missing! Set it as an environment variable.")
-    exit()
+    st.error("🚨 ERROR: OpenAI API key is missing! Set it as an environment variable.")
+    st.stop()
 
 openai.api_key = api_key  # Set API Key
 
@@ -35,22 +34,17 @@ def get_gpt_response(prompt):
     except Exception as e:
         return "I'm feeling a little off today, but you are still unstoppable! 💪"
 
-def chatbot():
-    print("🔥 AI Hype Man Activated! Type 'exit' to stop. 🔥")
-    while True:
-        user_input = input("You: ").strip().lower()
-        if user_input == "exit":
-            print("👑 Stay fearless! Chatbot signing off. 👑")
-            speak("Stay fearless! Chatbot signing off.")
-            break
+# Streamlit Web Interface
+st.title("🔥 AI Hype Man – Your Personal Motivational Chatbot 🔥")
 
-        # Get AI-generated response
+st.write("Type your thoughts below and let the AI Hype Man inspire you! 😏")
+
+user_input = st.text_input("You:", "")
+
+if st.button("Get Motivation"):
+    if user_input:
         response = get_gpt_response(user_input)
-
-        print(f"🤖 AI Hype Man: {response}")
+        st.write(f"🤖 AI Hype Man: {response}")
         speak(response)
-
-        time.sleep(1)
-
-if __name__ == "__main__":
-    chatbot()
+    else:
+        st.warning("Please enter a message first!")
