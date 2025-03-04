@@ -1,9 +1,5 @@
 import random
 import time
-import pyttsx3  # Import Text-to-Speech library
-
-# Initialize the TTS engine
-engine = pyttsx3.init()
 
 # Dictionary of motivational responses
 motivational_quotes = {
@@ -29,19 +25,12 @@ motivational_quotes = {
 }
 
 
-def speak(text):
-    """Function to make the chatbot speak"""
-    engine.say(text)
-    engine.runAndWait()
-
-
 def chatbot():
     print("🔥 AI Hype Man Activated! Type 'exit' to stop. 🔥")
     while True:
         user_input = input("You: ").lower()
         if user_input == "exit":
             print("👑 Stay fearless! Chatbot signing off. 👑")
-            speak("Stay fearless! Chatbot signing off.")
             break
 
         response = None
@@ -52,10 +41,8 @@ def chatbot():
 
         if response:
             print(f"🤖 AI Hype Man: {response}")
-            speak(response)  # Make the chatbot speak the response
         else:
             print("🤖 AI Hype Man: I see you grinding! Keep going! 💪")
-            speak("I see you grinding! Keep going!")
 
         time.sleep(1)  # Adds a slight delay for a natural conversation feel
 
